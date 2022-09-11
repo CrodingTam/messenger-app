@@ -1,19 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBLujf2xf5lFiPdocH_KBACG2qxmDrXb_A",
+  authDomain: "messenger-app-7fdb7.firebaseapp.com",
+  projectId: "messenger-app-7fdb7",
+  storageBucket: "messenger-app-7fdb7.appspot.com",
+  messagingSenderId: "237528365356",
+  appId: "1:237528365356:web:9f5e718bfb6a83aeae1489",
+  measurementId: "G-Q8LXSVX09X"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <App />
-  </React.StrictMode>
+  //</React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
