@@ -33,16 +33,19 @@ const Register = () => {
                 email: userAuth.user.email,
                 displayName: userFirstName
             }))
-        
+            alert("You are registered succesfully");
+            window.location.pathname = "/";
         })
         .catch((err) => {
             alert(err);
-        })
+        });
     }
 
     return(
         <Layout>
             <div className="registerContainer">
+                <div className="brand-logo-register"></div>
+                <div className="brand-title">Sign up</div>
                 <Card>
                     <form>
                         <input 
@@ -53,6 +56,7 @@ const Register = () => {
                             required
                             placeholder="Your first name here "
                         />
+                        <br></br>
                         <input 
                             name="lastName"
                             type="text" 
@@ -61,6 +65,7 @@ const Register = () => {
                             required
                             placeholder="Your last name here"
                         />
+                        <br></br>
                         <input 
                             name="email"
                             type="text" 
@@ -69,6 +74,7 @@ const Register = () => {
                             required
                             placeholder="Email here"
                         />
+                        <br></br>
                         <input 
                             name="password"
                             type="password" 
@@ -77,8 +83,10 @@ const Register = () => {
                             required
                             placeholder="Password here"
                         />
-
-                    <input type="button" value="Sign up" onClick={register}/>
+                        <br></br>
+                    <div className="registerIconContainer">
+                        <i className='bx bx-plus-circle' onClick={register} id="registerIcon"></i>
+                    </div>
                     </form>
                 </Card>
             </div>

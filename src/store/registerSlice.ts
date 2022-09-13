@@ -7,7 +7,7 @@ export interface IRegisterState {
     password: string,
 }
 
-const initialState:IRegisterState = {
+const initialState: IRegisterState = {
     email: "",
     password: "",
     firstName: "",

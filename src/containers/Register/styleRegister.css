@@ -1,6 +1,41 @@
 .registerContainer {
-    width: 400px;
-    position: relative;
-    margin: 50px auto;
-    text-align: center;
+    position: absolute;
+    width: 25vw;
+    height: 80vh;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: 5px 5px 20px #cbced1, -5px -5px 10px white;
+    left: 50%;
+    top: 10%;
 }
+
+.brand-logo-register {
+    height: 100px;
+    width: 100px;
+    background-color: black;
+    background: url("../../../public//images/register.png");
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto;
+    opacity: 1;
+  }
+
+  .registerIconContainer {
+    display: flex;
+    justify-content: center;
+    font-size: 180%;
+  }
+
+  #registerIcon:hover {
+    scale: 1.1;
+    cursor: pointer;
+  }
+
+  #registerIcon:active {
+    transition: 0.2s;
+    scale: 0.9;
+    cursor: pointer;
+  }

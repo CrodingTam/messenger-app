@@ -1,7 +1,8 @@
-import { User } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 import { RootState } from "../../store/store";
 import { logout, selectUser } from "../../store/userSlice";
 import "./styleHeader.css";
@@ -14,26 +15,38 @@ const Header: React.FC<IHeaderProps> = (props) => {
     const reduxDispatch = useDispatch();
     const user = useSelector(selectUser);
     const displayName = useSelector((state:RootState) => state.user.displayName);
+    
+    const signOutFromApp = () => {
+        reduxDispatch(logout());
+        signOut(auth).then(() => {
+            alert("Signed out succesfully");
+        }).catch((error) => {
+            alert(error);
+        })
+    }
     return(
         <header className="header">
-            <div style={{display: "flex"}}>
-                <div className="logo">Messenger app</div>
+            <div>
                 <ul className="leftMenu">
                     {/* If the user is logged in we can not click  */}
                     {!user ? (
-                        <li><NavLink to={"/login"}>Login</NavLink></li>
+                        [
+                            <li className="login"><NavLink to={"/login"}> <i className='bx bx-log-in'></i>Log in</NavLink></li>,
+                            <li className="signup"><NavLink to={"/register"}><i className='bx bx-up-arrow-circle'></i>Sign up</NavLink></li>
+                        ]
                     ): (
                         ""
                     )}
-                    <li><NavLink to={"/register"}>Sign up</NavLink></li>
+                    
                 </ul> 
+                <div className="logo"><img src="../../images/messenger.png" alt="messengerImage" className="messengerImage"></img></div>
             </div>
-            <div style={{margin: "20px 0", color: "#fff", fontWeight: "bold"}}>{user ? `Welcome ${displayName}`  : ""}</div>
+            <div className="nameDisplayer">{user ? <i className='bx bx-id-card' id="displayIcon" ></i> : ""}{user ? `${displayName}`  : ""}</div>
             <ul className="menu">
                 <li>
                     <Link to={"#"} onClick={() => {
-                        reduxDispatch(logout())
-                    }}>Log Out</Link>
+                        signOutFromApp();
+                    }}><i className='bx bx-log-out'></i>Log Out</Link>
                 </li>
             </ul>
 

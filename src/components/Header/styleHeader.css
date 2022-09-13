@@ -1,31 +1,83 @@
 .header{
-    width: 100%;
-    position: relative;
-    height: 60px;
-    display: flex;
-    background: #1b5ff9;
-    justify-content: space-between;
+    width: 20%;
+    position: fixed;
+    height: 100%;
+    background: white;
     box-sizing: border-box;
     font-family: 'Roboto Condensed', sans-serif;
+    top: 0;
+    left: 0;
+    padding: 6px, 14px;
 }
 
 .logo{
-    font-size: 20px;
-    color: #fff;
-    text-transform: capitalize;
-    font-weight: bold;
-    margin: 18px;
-    text-shadow: 0 0;
-    font-family: 'Roboto Condensed', sans-serif;
+    display: flex;
+    padding-top: 5%;
+    justify-content: center;
 }
 
-.menu{
+
+.messengerImage{
+    position: relative;
+    width: 30%;
+    height: 130%;
+}
+
+
+.leftMenu{
+    width: 100%;
     display: flex;
-    margin: 20px;
+    color: black; 
+    text-decoration: none;
+    justify-content: space-between;
+    padding-top: 2%;
+}
+
+.signup{
+    padding-right: 5%;
+}
+
+.login{
+    padding-left: 5%;
+}
+
+.leftMenu > li{
+    list-style-type: none;
+   
+}
+
+.leftMenu > li:hover{
+    scale:1.1;
+}
+.leftMenu > li:active{
+    transition: 0.2s;
+    scale:0.95;
+}
+
+
+ i{
+    font-size: 200%;
+ }
+
+.leftMenu > li > a{
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.leftMenu > li > a.active{
+    font-weight: bolder;
+}
+
+
+.menu{
+    position: absolute;
+    bottom: 1%;
+    padding: 3%;
 }
 
 .menu > li > a{
-    color: #fff;
+    color: black;
     font-weight: bold;
     text-shadow: 0 0;
     text-decoration: none;
@@ -34,24 +86,27 @@
 .menu > li {
     list-style-type: none;
 }
-
-.leftMenu{
-    display: flex; 
-    color: #fff; 
-    margin: 20px;
-    text-decoration: none;
+.menu > li:hover {
+    scale: 1.1;
 }
 
-.leftMenu > li{
-    list-style-type: none;
-    margin: 0 10px;
+
+.menu > li:active {
+    transition: 0.2s;
+    scale: 0.95;
 }
 
-.leftMenu > li > a{
-    color: #fff;
-    text-decoration: none;
+.nameDisplayer {
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+    margin: "20px 0";
+    color: "black"; 
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 120%;
 }
 
-.leftMenu > li > a.active{
-    font-weight: bold;
+#displayIcon {
+    font-size: 140%;
 }
