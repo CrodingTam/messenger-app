@@ -46,7 +46,7 @@ const Register = () => {
             }).catch((err) => {
                 alert(err);
             })
-            alert("You are registered succesfully");
+            console.log("You are registered and logged in succesfully...");
            
         })
         .catch((err) => {

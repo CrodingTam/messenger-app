@@ -4,7 +4,7 @@ import Layout from "../../components/Layout/Layout";
 const Home = () => {
     return(
         <Layout>
-            <div>Home page</div>
+            <div style={{color:"white"}}>Home asdasdsadasdsadsadsadasdsadsadasdasdsadsad</div>
         </Layout>
     )
 }

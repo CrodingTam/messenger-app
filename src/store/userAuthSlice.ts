@@ -6,6 +6,7 @@ interface IUserAuthState {
     userInfo: {
         displayName: string,
         email: string,
+        uid: string,
         authenticating: boolean,
         authenticated: boolean,
         error: null
@@ -18,6 +19,7 @@ const initialState: IUserAuthState = {
     userInfo: {
         displayName: "",
         email: "",
+        uid:"",
         authenticating: false,
         authenticated: false,
         error: null
@@ -42,6 +44,7 @@ export const userAuthSlice = createSlice({
                     state.userInfo = {
                         displayName:action.payload.user.displayName,
                         email: action.payload.user.email,
+                        uid: action.payload.user.uid,
                         authenticating: false,
                         authenticated: true,
                         error: null

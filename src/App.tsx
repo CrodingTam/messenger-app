@@ -4,14 +4,13 @@ import Home from './containers/Home/Home';
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
 import "./App.css";
-import { login, logout, selectUser, setDisplayName, setphotoURL } from './store/userSlice';
+import { login, selectUser, setDisplayName, setphotoURL } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth, db } from './firebase/firebase';
-import PrivateRoute from './components/PrivateRoute';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { auth} from './firebase/firebase';
 import { RootState } from './store/store';
 import { userLogin } from './store/userAuthSlice';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
 	const userFirstName = useSelector((state:RootState) => state.register.firstName);
@@ -41,14 +40,15 @@ function App() {
 			}
 			reduxDispatch(setDisplayName(userAuth?.displayName));
 			reduxDispatch(setphotoURL(userAuth?.photoURL));
-			
 		});
 	}, []);
 
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Home />}></Route>
+				<Route path="/" element={<PrivateRoute />}>
+					<Route path="/" element={<Home />}></Route>
+				</Route>
 				<Route path="/register" element={<Register />}></Route>
 				<Route path="/login" element={<Login />}></Route>
 			</Routes>

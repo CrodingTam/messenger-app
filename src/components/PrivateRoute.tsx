@@ -8,12 +8,10 @@ interface IPrivateRouteState {
 }
 
 
-const PrivateRoute:React.FC<IPrivateRouteState> = (props) => {
-    console.log(auth)
-    console.log(auth.currentUser?.displayName);
-    return(
-        auth.currentUser != null ? props.children : <Navigate to="/login"></Navigate>
-    );
-}
+const PrivateRoute = () => {
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || ""): null
+
+    return user ? <Home/> : <Navigate to="/login" /> 
+};
 
 export default PrivateRoute;
