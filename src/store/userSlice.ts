@@ -4,11 +4,13 @@ import { RootState } from "./store";
 export interface IUserState {
   user: null,
   displayName: string | null | undefined,
+  photoURL: string | null | undefined,
 }
 
 const initialState :IUserState = {
   user: null,
-  displayName: ""
+  displayName: "",
+  photoURL: ""
 }
 
 export const userSlice = createSlice({
@@ -23,11 +25,14 @@ export const userSlice = createSlice({
       },
       setDisplayName: (state, action:PayloadAction<string|null|undefined>) => {
         state.displayName = action.payload;
+      },
+      setphotoURL: (state, action: PayloadAction<string|null|undefined>) => {
+        state.photoURL = action.payload;
       }
     },
   });
   
-  export const { login, logout, setDisplayName } = userSlice.actions;
+  export const { login, logout, setDisplayName, setphotoURL } = userSlice.actions;
   
   // selectors
   export const selectUser = (state:RootState) => state.user.user;

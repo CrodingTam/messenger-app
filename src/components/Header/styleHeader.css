@@ -110,3 +110,15 @@
 #displayIcon {
     font-size: 140%;
 }
+
+.profileImageContainer{
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.profileImage{
+    width: 12vh;
+    height: 11vh;
+    border-radius: 70%;
+}

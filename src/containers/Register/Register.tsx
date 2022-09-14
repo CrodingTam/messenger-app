@@ -1,10 +1,13 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { authConstant } from "../../authconstant/authconstant";
 import Layout from "../../components/Layout/Layout";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { addEmail, addFirstName, addLastName, addPassword } from "../../store/registerSlice";
 import { RootState } from "../../store/store";
+import { userLogin } from "../../store/userAuthSlice";
 import { login } from "../../store/userSlice";
 import Card from "../Card/Card";
 import "./styleRegister.css";
@@ -20,23 +23,34 @@ const Register = () => {
         if (!userFirstName || !userLastName) {
             return alert("Please enter your full name");
         }
+   
 
         createUserWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userAuth) => {
             updateProfile(userAuth.user, {
-                displayName: userFirstName
+                displayName: `${userFirstName} ${userLastName}`,
+                photoURL: `${userFirstName}.jpg`
+            }).then(() => {
+                reduxDispatch(login({
+                    email: userAuth.user.email,
+                    displayName: userAuth.user.displayName
+                }));
+                addDoc(collection(db, "users"), {
+                    displayName: userAuth.user.displayName,
+                    uid: userAuth.user.uid,
+                    createdAt: new Date(),
+                    photoURL: userAuth.user.photoURL
+                }).then(()=> {
+                    window.location.pathname = "/";
+                })
+            }).catch((err) => {
+                alert(err);
             })
-            .catch((error) => {
-                console.log("User not updated");
-            });
-            reduxDispatch(login({
-                email: userAuth.user.email,
-                displayName: userFirstName
-            }))
             alert("You are registered succesfully");
-            window.location.pathname = "/";
+           
         })
         .catch((err) => {
+            reduxDispatch(userLogin({type:"USER_LOGIN_FAILURE", error:{err}}));
             alert(err);
         });
     }

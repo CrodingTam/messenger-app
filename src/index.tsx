@@ -17,9 +17,6 @@ import { store } from './store/store';
 // const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
-const hehe = store;
-console.log(hehe);
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

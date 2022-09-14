@@ -15,7 +15,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
     const reduxDispatch = useDispatch();
     const user = useSelector(selectUser);
     const displayName = useSelector((state:RootState) => state.user.displayName);
-    
+    const profileURL = useSelector((state:RootState) => state.user.photoURL);
     const signOutFromApp = () => {
         reduxDispatch(logout());
         signOut(auth).then(() => {
@@ -39,8 +39,16 @@ const Header: React.FC<IHeaderProps> = (props) => {
                     )}
                     
                 </ul> 
-                <div className="logo"><img src="../../images/messenger.png" alt="messengerImage" className="messengerImage"></img></div>
+              
             </div>
+            {!user ?  <div className="logo"><img src="../../images/messenger.png" alt="messengerImage" className="messengerImage"></img></div> 
+                : 
+                <div className="profileImageContainer">
+                    <img src={`../../images/profileImages/${profileURL}`} alt="hehe" className="profileImage"></img>
+                </div>
+            }
+           
+          
             <div className="nameDisplayer">{user ? <i className='bx bx-id-card' id="displayIcon" ></i> : ""}{user ? `${displayName}`  : ""}</div>
             <ul className="menu">
                 <li>

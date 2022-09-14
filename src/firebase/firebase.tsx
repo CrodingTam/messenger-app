@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -18,9 +20,10 @@ export const firebaseConfig = {
   measurementId: "G-Q8LXSVX09X"
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
+const db = getFirestore(app);
 
 export {
     auth,
@@ -28,6 +31,7 @@ export {
     updateProfile,
     onAuthStateChanged,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    db
 }
 
