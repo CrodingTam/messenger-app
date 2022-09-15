@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { RootState } from "../../store/store";
+import { userLogout } from "../../store/userAuthSlice";
 import { logout, selectUser } from "../../store/userSlice";
 import "./styleHeader.css";
 
@@ -18,11 +19,16 @@ const Header: React.FC<IHeaderProps> = (props) => {
     const profileURL = useSelector((state:RootState) => state.user.photoURL);
     const signOutFromApp = () => {
         reduxDispatch(logout());
+        reduxDispatch(userLogout({type:"USER_LOGOUT_REQUEST"}));
         signOut(auth).then(() => {
             alert("Signed out succesfully");
+            localStorage.clear();
+            reduxDispatch(userLogout({type:"USER_LOGOUT_SUCCES"}));
         }).catch((error) => {
             alert(error);
+            reduxDispatch(userLogout({type:"USER_LOGOUT_FAILURE", error: {error}}));
         })
+        window.location.pathname = "/login";
     }
     return(
         <header className="header">

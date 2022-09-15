@@ -7,19 +7,37 @@ import "./App.css";
 import { login, selectUser, setDisplayName, setphotoURL } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth} from './firebase/firebase';
+import { auth, db} from './firebase/firebase';
 import { RootState } from './store/store';
 import { userLogin } from './store/userAuthSlice';
 import PrivateRoute from './components/PrivateRoute';
+import { query, collection, onSnapshot, DocumentData, where } from 'firebase/firestore';
+import { setRealtimeUsers, setUsers } from './store/realtimeUsersSlice';
 
 function App() {
-	const userFirstName = useSelector((state:RootState) => state.register.firstName);
-    const userLastName = useSelector((state:RootState) => state.register.lastName);
-	const userEmail = useSelector((state:RootState) => state.register.email);
-	const user = useSelector(selectUser);
 	const reduxDispatch = useDispatch();
-	const userAuthInfo = useSelector((state:RootState) => state.userAuth.userInfo);
 
+    const getRealtimeUsers = (currentUid: string) => {
+		
+        reduxDispatch(setRealtimeUsers("GET_REALTIME_USERS_REQUEST"));
+		const users: DocumentData[] = [];
+        const q = query(collection(db, "users"));
+        onSnapshot(q, (querySnapshot) => {
+            querySnapshot.forEach((doc: any) => {
+				if(currentUid != doc.data().uid){
+					users.push(doc.data());
+				}
+           
+            });
+			reduxDispatch(setRealtimeUsers("GET_REALTIME_USERS_SUCCES"));
+			reduxDispatch(setUsers(users));
+        })
+		
+		
+		
+
+		
+    }
 	// check at page load if a user is authenticated
 	useEffect(() => {
 		reduxDispatch(userLogin({type:"USER_LOGIN_REQUEST"}));
@@ -37,11 +55,14 @@ function App() {
 				}
 				localStorage.setItem("user", JSON.stringify(registeredUser));
 				reduxDispatch(userLogin({type:"USER_LOGIN_SUCCES", user: registeredUser}));
+				getRealtimeUsers(userAuth.uid);
 			}
 			reduxDispatch(setDisplayName(userAuth?.displayName));
 			reduxDispatch(setphotoURL(userAuth?.photoURL));
 		});
 	}, []);
+
+
 
 	return (
 		<BrowserRouter>

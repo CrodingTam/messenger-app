@@ -3,6 +3,7 @@ import { RootState } from "./store";
 
 interface IUserAuthState {
     USER_LOGIN: string;
+    USER_LOGOUT: string;
     userInfo: {
         displayName: string,
         email: string,
@@ -19,11 +20,12 @@ const initialState: IUserAuthState = {
     userInfo: {
         displayName: "",
         email: "",
-        uid:"",
+        uid: "",
         authenticating: false,
         authenticated: false,
         error: null
-    }
+    },
+    USER_LOGOUT: "USER_LOGOUT"
 }
 
 export const userAuthSlice = createSlice({
@@ -57,9 +59,29 @@ export const userAuthSlice = createSlice({
                     }
                     break;
             }
+        },
+        userLogout: (state, action) => {
+            state.USER_LOGOUT = action.payload.type;
+
+            switch (state.USER_LOGOUT) {
+                case "USER_LOGOUT_REQUEST":
+                    break;
+                case "USER_LOGOUT_SUCCES":
+                    state.userInfo = {
+                        ...initialState.userInfo
+                    }
+                    break;
+                case "USER_LOGOUT_FAILURE":
+                    state.userInfo = {
+                        ...state.userInfo,
+                        error: action.payload.error
+                    }
+                    break;
+                
+            }
         }
     }
 })
 
-export const {userLogin} = userAuthSlice.actions;
+export const {userLogin, userLogout} = userAuthSlice.actions;
 export default userAuthSlice.reducer;

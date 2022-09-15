@@ -1,10 +1,11 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentData, onSnapshot, query, QuerySnapshot } from "firebase/firestore";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authConstant } from "../../authconstant/authconstant";
 import Layout from "../../components/Layout/Layout";
 import { auth, db } from "../../firebase/firebase";
+import { setRealtimeUsers } from "../../store/realtimeUsersSlice";
 import { addEmail, addFirstName, addLastName, addPassword } from "../../store/registerSlice";
 import { RootState } from "../../store/store";
 import { userLogin } from "../../store/userAuthSlice";
@@ -18,7 +19,7 @@ const Register = () => {
     const userPassword = useSelector((state:RootState) => state.register.password);
     const userFirstName = useSelector((state:RootState) => state.register.firstName);
     const userLastName = useSelector((state:RootState) => state.register.lastName);
-
+    
     const register = () => {
         if (!userFirstName || !userLastName) {
             return alert("Please enter your full name");
@@ -39,14 +40,15 @@ const Register = () => {
                     displayName: userAuth.user.displayName,
                     uid: userAuth.user.uid,
                     createdAt: new Date(),
-                    photoURL: userAuth.user.photoURL
+                    photoURL: userAuth.user.photoURL,
+                    isOnline: true
                 }).then(()=> {
                     window.location.pathname = "/";
                 })
             }).catch((err) => {
                 alert(err);
             })
-            console.log("You are registered and logged in succesfully...");
+            alert("You are registered and logged in succesfully...");
            
         })
         .catch((err) => {

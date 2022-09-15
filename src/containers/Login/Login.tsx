@@ -1,10 +1,12 @@
 import { getAuth, signInWithEmailAndPassword, signOut, UserCredential } from "firebase/auth";
+import { query, collection, onSnapshot, DocumentData } from "firebase/firestore";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout/Layout";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { setEmail, setPassword } from "../../store/loginSlice";
 import { RootState } from "../../store/store";
+import { userLogin } from "../../store/userAuthSlice";
 import { login, logout } from "../../store/userSlice";
 import Card from "../Card/Card";
 import "./styleLogin.css"
