@@ -32,11 +32,6 @@ function App() {
 			reduxDispatch(setRealtimeUsers("GET_REALTIME_USERS_SUCCES"));
 			reduxDispatch(setUsers(users));
         })
-		
-		
-		
-
-		
     }
 	// check at page load if a user is authenticated
 	useEffect(() => {

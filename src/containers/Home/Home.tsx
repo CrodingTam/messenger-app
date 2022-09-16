@@ -6,17 +6,22 @@ import "./styleHome.css";
 
 const Home = () => {
     const realtimeUsers = useSelector((state:RootState) => state.realtimeUsers);
-    console.log(realtimeUsers.users.length);
     return(
        
         <Layout>
-           
             <div >
                 <div className="listOfUsers">
                     {realtimeUsers.users.length > 0 ? 
                     realtimeUsers.users.map((user:any) => {
                         return (
-                            <div key={user.uid}><img src={`../../images/profileImages/${user.photoURL}`} className="userPhotos" onClick={() => {console.log(user.displayName)}}></img></div>
+                            <div key={user.uid}>
+                                <div className="userContainer"> 
+                                    <img src={`../../images/profileImages/${user.photoURL}`} className="userPhotos" onClick={() => {console.log(user.displayName)}}></img>
+                                    <span className="userDisplayName">{user.displayName}</span>
+                                    <span>{user.isOnline ? "online" : "offline"}</span>
+                                </div>
+                               
+                            </div>
                         )
                     }) : ""}
                 </div>
@@ -47,22 +52,3 @@ const Home = () => {
 }
 
 export default Home;
-
-function reduxDispatch(arg0: any) {
-    throw new Error("Function not implemented.");
-}
-
-
-function query(arg0: any) {
-    throw new Error("Function not implemented.");
-}
-
-
-function collection(db: any, arg1: string): any {
-    throw new Error("Function not implemented.");
-}
-
-
-function onSnapshot(q: any, arg1: (querySnapshot: any) => void) {
-    throw new Error("Function not implemented.");
-}
