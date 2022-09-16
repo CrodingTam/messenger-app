@@ -1,11 +1,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addDoc, collection, doc, DocumentData, onSnapshot, query, QuerySnapshot } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authConstant } from "../../authconstant/authconstant";
 import Layout from "../../components/Layout/Layout";
 import { auth, db } from "../../firebase/firebase";
-import { setRealtimeUsers } from "../../store/realtimeUsersSlice";
 import { addEmail, addFirstName, addLastName, addPassword } from "../../store/registerSlice";
 import { RootState } from "../../store/store";
 import { userLogin } from "../../store/userAuthSlice";
@@ -30,13 +28,13 @@ const Register = () => {
         .then((userAuth) => {
             updateProfile(userAuth.user, {
                 displayName: `${userFirstName} ${userLastName}`,
-                photoURL: `${userFirstName}.jpg`
+                photoURL: `${userFirstName}.jpg`,
             }).then(() => {
                 reduxDispatch(login({
                     email: userAuth.user.email,
                     displayName: userAuth.user.displayName
                 }));
-                addDoc(collection(db, "users"), {
+                setDoc(doc(db, "users", userAuth.user.uid), {
                     displayName: userAuth.user.displayName,
                     uid: userAuth.user.uid,
                     createdAt: new Date(),

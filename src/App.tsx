@@ -11,7 +11,7 @@ import { auth, db} from './firebase/firebase';
 import { RootState } from './store/store';
 import { userLogin } from './store/userAuthSlice';
 import PrivateRoute from './components/PrivateRoute';
-import { query, collection, onSnapshot, DocumentData, where } from 'firebase/firestore';
+import { query, collection, onSnapshot, DocumentData, where, doc, updateDoc } from 'firebase/firestore';
 import { setRealtimeUsers, setUsers } from './store/realtimeUsersSlice';
 
 function App() {
@@ -23,16 +23,16 @@ function App() {
 		const users: DocumentData[] = [];
         const q = query(collection(db, "users"));
         onSnapshot(q, (querySnapshot) => {
-            querySnapshot.forEach((doc: any) => {
-				if(currentUid != doc.data().uid){
-					users.push(doc.data());
+            querySnapshot.forEach((document: any) => {
+				if(currentUid != document.data().uid){
+					users.push(document.data());
 				}
-           
             });
 			reduxDispatch(setRealtimeUsers("GET_REALTIME_USERS_SUCCES"));
 			reduxDispatch(setUsers(users));
         })
     }
+
 	// check at page load if a user is authenticated
 	useEffect(() => {
 		reduxDispatch(userLogin({type:"USER_LOGIN_REQUEST"}));
@@ -56,8 +56,6 @@ function App() {
 			reduxDispatch(setphotoURL(userAuth?.photoURL));
 		});
 	}, []);
-
-
 
 	return (
 		<BrowserRouter>

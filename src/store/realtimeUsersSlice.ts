@@ -4,13 +4,18 @@ import { RootState } from "./store";
 
 interface IRealtimeUsersSlice {
     GET_REALTIME_USERS: string;
-    users:DocumentData[];
+    GET_REALTIME_MESSAGES: string;
+    users: DocumentData[];
+    conversations: DocumentData[]
    
 }
 
 const initialState: IRealtimeUsersSlice = {
     GET_REALTIME_USERS: "GET_REALTIME_USERS",
-    users: []
+    GET_REALTIME_MESSAGES: "GET_REALTIME_MESSAGES",
+    users: [],
+    conversations: [],
+    
 }
 
 export const realtimeUsersSlice = createSlice({
@@ -32,9 +37,21 @@ export const realtimeUsersSlice = createSlice({
                 case "GET_REALTIME_USERS_REQUEST":
                     break;
             }
-        }        
+        },
+        setRealtimeConversation: (state, action:PayloadAction<string>) => {
+            state.GET_REALTIME_MESSAGES = action.payload;
+        },
+        setConversations: (state, action:PayloadAction<DocumentData[]>) => {
+            switch (state.GET_REALTIME_MESSAGES) {
+                case "GET_REALTIME_MESSAGES":
+                    state.conversations = action.payload
+                    break;
+                case "GET_REALTIME_MESSAGES_FAILURE":
+                    break;
+            }
+        }
     }
 })
 
-export const {setRealtimeUsers, setUsers} = realtimeUsersSlice.actions;
+export const {setRealtimeUsers, setUsers, setRealtimeConversation, setConversations} = realtimeUsersSlice.actions;
 export default realtimeUsersSlice.reducer;

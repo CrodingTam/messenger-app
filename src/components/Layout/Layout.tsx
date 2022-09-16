@@ -10,9 +10,7 @@ interface ILayoutProps {
 const Layout: React.FC<ILayoutProps> = (props) => {
     return(
         <div>
-            <Header logout={function (e: any): void {
-                throw new Error("Function not implemented.");
-            } }></Header>
+            <Header ></Header>
             {props.children}
         </div>
     )

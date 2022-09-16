@@ -1,10 +1,11 @@
 import { getAuth, signInWithEmailAndPassword, signOut, UserCredential } from "firebase/auth";
-import { query, collection, onSnapshot, DocumentData } from "firebase/firestore";
+import { query, collection, onSnapshot, DocumentData, doc, updateDoc, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout/Layout";
 import { auth, db } from "../../firebase/firebase";
 import { setEmail, setPassword } from "../../store/loginSlice";
+import { setRealtimeUsers, setUsers } from "../../store/realtimeUsersSlice";
 import { RootState } from "../../store/store";
 import { userLogin } from "../../store/userAuthSlice";
 import { login, logout } from "../../store/userSlice";
@@ -22,19 +23,30 @@ const Login = () => {
         signInWithEmailAndPassword(auth, userEmail, userPassword)
         // returns  an auth object after a successful authentication
         // userAuth.user contains all our user details
-        .then((userAuth: UserCredential) => {
+        .then( async (userAuth: UserCredential) => {
             // store the user's information in the redux state
+            await setOnlineState(userAuth.user.uid);
             reduxDispatch(login({
                 email: userAuth.user.email,
                 displayName: userAuth.user.displayName
             }));
             alert("You are logged in succesfully");
             window.location.pathname ="/";
+            // await updateUserInfo(userAuth.user.uid);
         })
         // display the error if any
         .catch((err) => {
             alert(err);
         })
+    }
+
+    const setOnlineState = async (uid: string) => {
+        const docref = doc(db,"users",uid)
+        await updateDoc(docref, {
+            isOnline : true
+        })
+        .then(() => alert("omgggg"))
+        .catch((error) => alert(error));
     }
 
     return(
