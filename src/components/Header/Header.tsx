@@ -56,7 +56,6 @@ const Header: React.FC<IHeaderProps> = (props) => {
      */
     const setOfflineState = async () => {
         const docref = doc(db,"users",userUid)
-        alert(userUid);
         updateDoc(docref, {
             isOnline : false
         }).then(() => signOutFromApp())

@@ -5,7 +5,7 @@
     top: 2%;
     left: 21%;
     background-image: linear-gradient(white 91%, black 10%);
-    width: 65vw;
+    width: 78.5vw;
     height: 96vh;
     border-radius: 1%;
     overflow: hidden;
@@ -19,6 +19,10 @@
 .listOfUsers{
     position: absolute;
     top: 25%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 62%;
+    width: 20%;
 }
 .userContainer{
     display: flex;
@@ -26,9 +30,17 @@
     width: max-content;
     text-align: center;
     align-items: center;
-    width: 150%;
-    padding-top: 15%;
+    width: 100%;
+    padding: 5%;
 }
+.userContainer:hover{
+    background-color: rgb(245, 234, 234);
+}
+.userContainer:active{
+    scale: .5;
+    transition: 0.5s;
+}
+
 .userPhotos{
     width: 10vh;
     height: 10vh;
@@ -70,10 +82,13 @@
 .messageSections{
     position: relative;
     overflow-x: hidden;
+    overflow-y: scroll;
+    height: 75%;
     
 }
 .messagesContainer{
     padding: 0.5%;
+
 }
 .chatControls{
     display: flex;

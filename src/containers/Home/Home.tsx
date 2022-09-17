@@ -6,6 +6,7 @@ import { db } from "../../firebase/firebase";
 import { setConversations, setRealtimeConversation, setRealtimeUsers, setUsers } from "../../store/realtimeUsersSlice";
 import { RootState } from "../../store/store";
 import "./styleHome.css";
+import styled from 'styled-components';
 
 /**
  * @returns a specific home layout container
@@ -17,6 +18,7 @@ const Home = () => {
     const realtimeUsers = useSelector((state:RootState) => state.realtimeUsers);
     const [chatStarted, setChatStarted] = useState(false);
     const [currentChatFriend, setCurrentChatTabName] = useState("");
+    const [currentChatFriendPhoto, setCurrentChatFriendPhoto] = useState("");
     const [message, setMessage] = useState("");
     const [chatableUserUid, setChatableUserUid] = useState("");
     const userInfo = useSelector((state:RootState) => state.userAuth.userInfo)
@@ -32,6 +34,7 @@ const Home = () => {
     const initChat = (user: any) => {
         setChatStarted(true);
         setCurrentChatTabName(user.displayName);
+        setCurrentChatFriendPhoto(user.photoURL);
         setChatableUserUid(user.uid)
         getRealtimeConversation({ uid_1: userInfo.uid, uid_2: user.uid })
 	}
@@ -115,7 +118,11 @@ const Home = () => {
                 
                 <div className="homePageContainer">
                     <div className="chatArea">
-                        <div className="chatHeader"> {currentChatFriend !== "" ? currentChatFriend : "Welcome here, I hope, you will like it! Below, you can chat with our friends, try it out!" } </div>
+                        <div className="chatHeader"> 
+                            <img src={`../../images/profileImages/${currentChatFriendPhoto}`} className="userPhotos" style={{marginLeft:"-6%", padding:"2%", marginBottom:"2%"}}></img>
+                            {currentChatFriend !== "" ? currentChatFriend : "Welcome here, I hope, you will like it! Below, you can chat with our friends, try it out!" } 
+                            
+                        </div>
                     </div>
 
                     <div className="messageSections">
@@ -125,7 +132,6 @@ const Home = () => {
                             </div>
                         )
                         ) : null}
-                     
                     </div>
                     
                     {chatStarted ? (  
@@ -133,7 +139,12 @@ const Home = () => {
                             <textarea className="messTextArea" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="You can write message here"/>
                             <button onClick={submitMessage}>Send</button>
                         </div>
-                    ) : null} 
+                    ) : ( 
+                        <div className="chatControls">
+                            <textarea className="messTextArea"/>
+                            <button></button>
+                        </div>
+                    )} 
                   
                 </div>
             </div>

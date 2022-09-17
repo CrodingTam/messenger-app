@@ -56,7 +56,7 @@ const Login = () => {
         await updateDoc(docref, {
             isOnline : true
         })
-        .then(() => alert("omgggg"))
+        .then(() => console.log("User is online"))
         .catch((error) => alert(error));
     }
 
