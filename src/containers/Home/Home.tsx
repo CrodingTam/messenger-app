@@ -119,7 +119,9 @@ const Home = () => {
                 <div className="homePageContainer">
                     <div className="chatArea">
                         <div className="chatHeader"> 
-                            <img src={`../../images/profileImages/${currentChatFriendPhoto}`} className="userPhotos" style={{marginLeft:"-6%", padding:"2%", marginBottom:"2%"}}></img>
+                            {currentChatFriendPhoto !== "" ? (
+                                  <img src={`../../images/profileImages/${currentChatFriendPhoto}`} className="userPhotos" style={{marginLeft:"-6%", padding:"2%", marginBottom:"2%"}}></img>
+                            ) : null}
                             {currentChatFriend !== "" ? currentChatFriend : "Welcome here, I hope, you will like it! Below, you can chat with our friends, try it out!" } 
                             
                         </div>
