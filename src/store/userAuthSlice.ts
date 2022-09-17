@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
+/**
+ * Create interface for better structure
+ */
 interface IUserAuthState {
     USER_LOGIN: string;
     USER_LOGOUT: string;
@@ -15,6 +18,9 @@ interface IUserAuthState {
    
 }
 
+/**
+ * set initial state with default values
+ */
 const initialState: IUserAuthState = {
     USER_LOGIN: 'USER_LOGIN',
     userInfo: {
@@ -28,6 +34,10 @@ const initialState: IUserAuthState = {
     USER_LOGOUT: "USER_LOGOUT"
 }
 
+/**
+ * Create slice, which is a function that accepts an initial state, an object full of reducer functions, 
+ * and a "slice name", and automatically generates action creators and action types that correspond to the reducers and state.
+ */
 export const userAuthSlice = createSlice({
     name:"userauth",
     initialState,

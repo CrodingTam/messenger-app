@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -8,8 +7,9 @@ import {
     onAuthStateChanged, 
     signInWithEmailAndPassword, 
     signOut 
-    } from 'firebase/auth';
+} from 'firebase/auth';
 
+//export our firebase config
 export const firebaseConfig = {
   apiKey: "AIzaSyBLujf2xf5lFiPdocH_KBACG2qxmDrXb_A",
   authDomain: "messenger-app-7fdb7.firebaseapp.com",
@@ -20,9 +20,13 @@ export const firebaseConfig = {
   measurementId: "G-Q8LXSVX09X"
 };
 
+//Creates and initializes a @firebase/app#FirebaseApp instance.
 const app = initializeApp(firebaseConfig);
 
+//Returns the Auth instance associated with the provided @firebase/app#FirebaseApp.
 const auth = getAuth();
+
+//Returns the existing default Firestore instance that is associated with the provided @firebase/app#FirebaseApp
 const db = getFirestore(app);
 
 export {

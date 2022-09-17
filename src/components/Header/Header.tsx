@@ -10,18 +10,34 @@ import userAuthSlice, { userLogout } from "../../store/userAuthSlice";
 import { logout, selectUser } from "../../store/userSlice";
 import "./styleHeader.css";
 
+/**
+ * Create interface for better structure
+ */
 interface IHeaderProps {
     logout?: (e: any) => void;
 }
 
+/**
+ * 
+ * @param props conditional properties for header component
+ * @returns a specific header
+ */
 const Header: React.FC<IHeaderProps> = (props) => {
+    /**
+     * selectors, subscribes, redux dispatch
+     */
     const reduxDispatch = useDispatch();
     const user = useSelector(selectUser);
     const userUid = useSelector((state:RootState) => state.userAuth.userInfo.uid);
     const displayName = useSelector((state:RootState) => state.user.displayName);
     const profileURL = useSelector((state:RootState) => state.user.photoURL);
+
+    /**
+     * Log out from app with firebase's specific function, which is signs out the current user
+     * Dispatch necessary actions for log out
+     * Navigate to login page
+     */
     const signOutFromApp = () => {
-      
         reduxDispatch(logout());
         reduxDispatch(userLogout({type:"USER_LOGOUT_REQUEST"}));
         signOut(auth).then( (document) => {
@@ -35,6 +51,9 @@ const Header: React.FC<IHeaderProps> = (props) => {
         window.location.pathname = "/login";
     }
 
+    /**
+     * When the user is logged oout, we update his/her availability status
+     */
     const setOfflineState = async () => {
         const docref = doc(db,"users",userUid)
         alert(userUid);
@@ -44,13 +63,6 @@ const Header: React.FC<IHeaderProps> = (props) => {
         .catch((error) => alert(error));
     }
 
-    // useEffect(()=>{
-    //     const docref = doc(db,"users",userUid)
-    //     alert(userUid);
-    //     updateDoc(docref, {
-    //         "isOnline": true
-    //     });
-    // }, [])
     return(
         <header className="header">
             <div>
@@ -68,6 +80,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
                 </ul> 
               
             </div>
+
             {!user ?  <div className="logo"><img src="../../images/messenger.png" alt="messengerImage" className="messengerImage"></img></div> 
                 : 
                 <div className="profileImageContainer">
@@ -75,8 +88,8 @@ const Header: React.FC<IHeaderProps> = (props) => {
                 </div>
             }
            
-          
             <div className="nameDisplayer">{user ? <i className='bx bx-id-card' id="displayIcon" ></i> : ""}{user ? `${displayName}`  : ""}</div>
+
             <ul className="menu">
                 <li key={"menu"}>
                     <Link to={"#"} onClick={() => {

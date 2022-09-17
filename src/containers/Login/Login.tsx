@@ -12,11 +12,20 @@ import { login, logout } from "../../store/userSlice";
 import Card from "../Card/Card";
 import "./styleLogin.css"
 
+/**
+ * 
+ * @returns a specifig login layout
+ */
 const Login = () => {
+    //selectors, dispatch
     const userEmail = useSelector((state:RootState) => state.login.email);
     const userPassword = useSelector((state:RootState) => state.login.password);
     const reduxDispatch = useDispatch();
 
+    /**
+     * Asynchronously signs in using an email and password
+     * Update the state for logged in user
+     */
     const loginToApp = (e: any) => {
         e.preventDefault();
          // Sign in an existing user with Firebase
@@ -32,7 +41,6 @@ const Login = () => {
             }));
             alert("You are logged in succesfully");
             window.location.pathname ="/";
-            // await updateUserInfo(userAuth.user.uid);
         })
         // display the error if any
         .catch((err) => {
@@ -40,6 +48,9 @@ const Login = () => {
         })
     }
 
+    /**
+     * Update the state at the specific uid
+     */
     const setOnlineState = async (uid: string) => {
         const docref = doc(db,"users",uid)
         await updateDoc(docref, {

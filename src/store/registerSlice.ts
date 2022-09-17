@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+/**
+ * Create interface for better structure
+ */
 export interface IRegisterState {
     firstName: string,
     lastName: string,
@@ -7,6 +10,9 @@ export interface IRegisterState {
     password: string,
 }
 
+/**
+ * set initial state with default values
+ */
 const initialState: IRegisterState = {
     email: "",
     password: "",
@@ -14,6 +20,10 @@ const initialState: IRegisterState = {
     lastName: ""
 }
 
+/**
+ * Create slice, which is a function that accepts an initial state, an object full of reducer functions, 
+ * and a "slice name", and automatically generates action creators and action types that correspond to the reducers and state.
+ */
 export const registerSlice = createSlice({
     name:"register",
     initialState,

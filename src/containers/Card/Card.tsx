@@ -6,6 +6,7 @@ interface ICardProps {
 }
 
 
+/**Create for consistens Form style */
 const Card: React.FC<ICardProps> = (props) => {
     return(
         <div className="card">

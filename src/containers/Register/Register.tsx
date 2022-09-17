@@ -11,19 +11,27 @@ import { login } from "../../store/userSlice";
 import Card from "../Card/Card";
 import "./styleRegister.css";
 
+/**
+ * 
+ * @returns a specific register layout
+ */
 const Register = () => {
+    //use dispatch, selectors
     const reduxDispatch = useDispatch();
     const userEmail = useSelector((state:RootState) => state.register.email);
     const userPassword = useSelector((state:RootState) => state.register.password);
     const userFirstName = useSelector((state:RootState) => state.register.firstName);
     const userLastName = useSelector((state:RootState) => state.register.lastName);
     
+    /**
+     * Creates a new user account associated with the specified email address and password.
+     * On successful creation of the user account, this user will also be signed in to our application.
+     * User account creation can fail if the account already exists or the password is invalid.
+     */
     const register = () => {
         if (!userFirstName || !userLastName) {
             return alert("Please enter your full name");
         }
-   
-
         createUserWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userAuth) => {
             updateProfile(userAuth.user, {

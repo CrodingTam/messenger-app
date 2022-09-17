@@ -6,6 +6,12 @@ import userAuthReducer from "./userAuthSlice";
 import realtimeUsersReducer from "./realtimeUsersSlice";
 import thunk from "redux-thunk";
 
+/**
+ * A friendly abstraction over the standard Redux createStore() function.
+ * 
+    @param config — The store configuration.
+    @returns — A configured Redux store.
+ */
 export const store = configureStore({
     reducer: {
         login: loginReducer,
