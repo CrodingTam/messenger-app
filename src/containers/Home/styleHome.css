@@ -36,10 +36,6 @@
 .userContainer:hover{
     background-color: rgb(245, 234, 234);
 }
-.userContainer:active{
-    scale: .5;
-    transition: 0.5s;
-}
 
 .userPhotos{
     width: 10vh;
